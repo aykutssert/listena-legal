@@ -1391,7 +1391,7 @@ body {
     color: var(--text-primary);
 }
 
-.pricing-features li span {
+.pricing-features > li > span {
     background: #ffffff;
     color: #0A0A0B;
     border-radius: 5px;
