@@ -1163,6 +1163,125 @@ body {
 }
 
 /* ============================================
+   WHY LISTENA SECTION
+   ============================================ */
+
+.why-section {
+    padding: 100px 0;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.why-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.why-header h2 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.why-header p {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.why-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px;
+}
+
+.why-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+}
+
+.why-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.why-card p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+    .why-section {
+        padding: 60px 0;
+    }
+
+    .why-header h2 {
+        font-size: 32px;
+    }
+
+    .why-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+    }
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.cta-section {
+    padding: 100px 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+}
+
+.cta-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.cta-content h2 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.cta-content p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+@media (max-width: 640px) {
+    .cta-section {
+        padding: 60px 0;
+    }
+
+    .cta-content h2 {
+        font-size: 28px;
+    }
+}
+
+/* ============================================
    PRICING SECTION
    ============================================ */
 
