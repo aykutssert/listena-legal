@@ -390,37 +390,39 @@
         document.addEventListener('DOMContentLoaded', function() {
             const steps = document.querySelectorAll('.feature-step');
             const screenImages = document.querySelectorAll('.raw-phone-img');
-            
-            // Only run on desktop
-            if (window.innerWidth > 1024) {
-                const observerOptions = {
-                    root: null,
-                    rootMargin: '-40% 0px -40% 0px',
-                    threshold: 0
-                };
-                
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const step = entry.target.dataset.step;
-                            
-                            // Update active step
-                            steps.forEach(s => s.classList.remove('active'));
-                            entry.target.classList.add('active');
-                            
-                            // Update phone screen
-                            screenImages.forEach(img => {
-                                img.classList.remove('active');
-                                if (img.dataset.step === step) {
-                                    img.classList.add('active');
-                                }
-                            });
-                        }
+
+            function updateActiveStep() {
+                if (window.innerWidth <= 1024) return;
+                const mid = window.innerHeight / 2;
+                let activeStep = null;
+                steps.forEach(step => {
+                    const rect = step.getBoundingClientRect();
+                    if (rect.top <= mid && rect.bottom >= mid) {
+                        activeStep = step;
+                    }
+                });
+                if (!activeStep) {
+                    // fallback: pick closest step center to viewport middle
+                    let minDist = Infinity;
+                    steps.forEach(step => {
+                        const rect = step.getBoundingClientRect();
+                        const center = (rect.top + rect.bottom) / 2;
+                        const dist = Math.abs(center - mid);
+                        if (dist < minDist) { minDist = dist; activeStep = step; }
                     });
-                }, observerOptions);
-                
-                steps.forEach(step => observer.observe(step));
+                }
+                if (!activeStep) return;
+                const step = activeStep.dataset.step;
+                steps.forEach(s => s.classList.remove('active'));
+                activeStep.classList.add('active');
+                screenImages.forEach(img => {
+                    img.classList.remove('active');
+                    if (img.dataset.step === step) img.classList.add('active');
+                });
             }
+
+            window.addEventListener('scroll', updateActiveStep, { passive: true });
+            updateActiveStep();
 
             // Mobile Single Phone Carousel
             const mobileCarousel = document.querySelector('.mobile-carousel');
