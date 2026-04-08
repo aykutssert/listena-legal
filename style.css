@@ -295,9 +295,13 @@ body {
     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
-.download-btn svg {
-    width: 18px;
-    height: 18px;
+.download-btn svg,
+.download-btn img {
+    width: 28px;
+    height: 32px;
+    display: block;
+    align-self: center;
+    transform: translateY(-3px);
 }
 
 /* ============================================
@@ -993,10 +997,12 @@ body {
     transform: scale(1);
 }
 
-.actor-card:hover {
-    transform: scale(1.2);
-    z-index: 100;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+@media (hover: hover) {
+    .actor-card:hover {
+        transform: scale(1.1);
+        z-index: 100;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    }
 }
 
 .actor-image {
@@ -1024,13 +1030,11 @@ body {
     transition: all 0.3s ease;
 }
 
-.actor-card:hover .actor-info {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.actor-card.playing {
-    box-shadow: 0 0 0 3px var(--text-primary), 0 30px 60px rgba(0, 0, 0, 0.6);
+@media (hover: hover) {
+    .actor-card:hover .actor-info {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .actor-card.playing::after {
