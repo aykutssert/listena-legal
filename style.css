@@ -269,6 +269,8 @@ body {
     font-weight: 500;
     color: var(--text-primary);
     box-shadow: var(--shadow);
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .feature-icon {
@@ -1267,6 +1269,13 @@ body {
     gap: 10px;
     font-size: 14px;
     color: var(--text-primary);
+}
+
+.pricing-features li span {
+    background: #ffffff;
+    color: #0A0A0B;
+    border-radius: 5px;
+    padding: 4px 10px;
 }
 
 .pricing-features svg {
