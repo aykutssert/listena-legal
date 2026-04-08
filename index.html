@@ -56,6 +56,33 @@
         </div>
     </main>
 
+    <!-- Podcast Preview -->
+    <section class="podcast-preview-section">
+        <div class="container">
+            <div class="podcast-player">
+                <button class="podcast-play-btn" id="podcastPlayBtn" aria-label="Play podcast preview">
+                    <svg class="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    <svg class="pause-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="6" y="4" width="4" height="16"/>
+                        <rect x="14" y="4" width="4" height="16"/>
+                    </svg>
+                </button>
+                <div class="podcast-waveform">
+                    <div class="waveform-bars">
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div class="podcast-time" id="podcastTime">00:00 / 00:30</div>
+            </div>
+            <p class="podcast-label">Sample: Learning English Podcast</p>
+        </div>
+    </section>
+
     <!-- Marquee Section -->
     <section class="marquee-section">
         <div class="marquee-row marquee-right">
@@ -535,6 +562,58 @@
                         card.addEventListener('click', () => goToActor(index));
                     });
                 }
+            }
+
+            // Podcast Player
+            const podcastPlayBtn = document.getElementById('podcastPlayBtn');
+            const podcastPlayer = document.querySelector('.podcast-player');
+            const podcastTime = document.getElementById('podcastTime');
+            
+            if (podcastPlayBtn) {
+                let podcastAudio = new Audio('podcast-audio.mp3');
+                let isPlaying = false;
+                
+                function formatTime(seconds) {
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+                
+                function updateTime() {
+                    const current = formatTime(podcastAudio.currentTime);
+                    const duration = formatTime(podcastAudio.duration || 30);
+                    podcastTime.textContent = `${current} / ${duration}`;
+                }
+                
+                podcastPlayBtn.addEventListener('click', () => {
+                    isPlaying = !isPlaying;
+                    
+                    if (isPlaying) {
+                        podcastAudio.play().catch(e => console.log('Audio play failed:', e));
+                        podcastPlayer.classList.add('playing');
+                        podcastPlayBtn.querySelector('.play-icon').classList.add('hidden');
+                        podcastPlayBtn.querySelector('.pause-icon').classList.remove('hidden');
+                    } else {
+                        podcastAudio.pause();
+                        podcastPlayer.classList.remove('playing');
+                        podcastPlayBtn.querySelector('.play-icon').classList.remove('hidden');
+                        podcastPlayBtn.querySelector('.pause-icon').classList.add('hidden');
+                    }
+                });
+                
+                podcastAudio.addEventListener('timeupdate', updateTime);
+                
+                podcastAudio.addEventListener('ended', () => {
+                    isPlaying = false;
+                    podcastPlayer.classList.remove('playing');
+                    podcastPlayBtn.querySelector('.play-icon').classList.remove('hidden');
+                    podcastPlayBtn.querySelector('.pause-icon').classList.add('hidden');
+                    podcastAudio.currentTime = 0;
+                    updateTime();
+                });
+                
+                // Initial time display
+                podcastAudio.addEventListener('loadedmetadata', updateTime);
             }
         });
     </script>

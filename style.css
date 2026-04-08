@@ -403,6 +403,129 @@ body {
 }
 
 /* ============================================
+   PODCAST PREVIEW SECTION
+   ============================================ */
+
+.podcast-preview-section {
+    padding: 40px 0;
+    background: var(--bg);
+}
+
+.podcast-player {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.podcast-play-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--text-primary);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.podcast-play-btn:hover {
+    background: var(--text-primary);
+    color: var(--bg);
+}
+
+.podcast-play-btn .hidden {
+    display: none;
+}
+
+.podcast-waveform {
+    flex: 1;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.waveform-bars {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.waveform-bars span {
+    flex: 1;
+    background: var(--text-muted);
+    border-radius: 2px;
+    transition: height 0.3s ease, background 0.2s;
+}
+
+.waveform-bars span:nth-child(odd) { height: 40%; }
+.waveform-bars span:nth-child(even) { height: 60%; }
+.waveform-bars span:nth-child(3n) { height: 80%; }
+.waveform-bars span:nth-child(4n) { height: 50%; }
+.waveform-bars span:nth-child(5n) { height: 70%; }
+
+.podcast-player.playing .waveform-bars span {
+    animation: waveform 0.5s ease-in-out infinite alternate;
+}
+
+.podcast-player.playing .waveform-bars span:nth-child(2n) {
+    animation-delay: 0.1s;
+}
+
+.podcast-player.playing .waveform-bars span:nth-child(3n) {
+    animation-delay: 0.2s;
+}
+
+@keyframes waveform {
+    0% { height: 20%; background: var(--text-muted); }
+    100% { height: 90%; background: var(--text-secondary); }
+}
+
+.podcast-time {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    min-width: 80px;
+    text-align: right;
+}
+
+.podcast-label {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+    .podcast-player {
+        padding: 16px 20px;
+        gap: 16px;
+    }
+
+    .podcast-play-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .podcast-time {
+        font-size: 12px;
+        min-width: 70px;
+    }
+}
+
+/* ============================================
    MARQUEE SECTION
    ============================================ */
 
