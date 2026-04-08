@@ -227,7 +227,7 @@
             </div>
             <div class="actors-grid">
                 <!-- Asteria - American Female -->
-                <div class="actor-card" data-actor="asteria">
+                <div class="actor-card" data-actor="asteria" data-audio="actors/preview/deepgram_asteria_1.wav">
                     <div class="actor-image">
                         <img src="actors/asteria.png" alt="Asteria">
                     </div>
@@ -239,7 +239,7 @@
                 </div>
 
                 <!-- Athena - British Female -->
-                <div class="actor-card" data-actor="athena">
+                <div class="actor-card" data-actor="athena" data-audio="actors/preview/deepgram_athena_1.wav">
                     <div class="actor-image">
                         <img src="actors/athena.png" alt="Athena">
                     </div>
@@ -251,7 +251,7 @@
                 </div>
 
                 <!-- Orpheus - American Male -->
-                <div class="actor-card" data-actor="orpheus">
+                <div class="actor-card" data-actor="orpheus" data-audio="actors/preview/deepgram_orpheus_1.wav">
                     <div class="actor-image">
                         <img src="actors/orpheus.png" alt="Orpheus">
                     </div>
@@ -263,7 +263,7 @@
                 </div>
 
                 <!-- Angus - Irish Male -->
-                <div class="actor-card" data-actor="angus">
+                <div class="actor-card" data-actor="angus" data-audio="actors/preview/deepgram_angus_1.wav">
                     <div class="actor-image">
                         <img src="actors/angus.png" alt="Angus">
                     </div>
@@ -275,7 +275,7 @@
                 </div>
 
                 <!-- Arcas - American Male -->
-                <div class="actor-card" data-actor="arcas">
+                <div class="actor-card" data-actor="arcas" data-audio="actors/preview/deepgram_arcas_1.wav">
                     <div class="actor-image">
                         <img src="actors/arcas.png" alt="Arcas">
                     </div>
@@ -407,7 +407,49 @@
                 });
             }
 
-            // Actors section - hover only, no click needed
+            // Actors section - click to play audio preview
+            const actorCards = document.querySelectorAll('.actor-card');
+            let currentAudio = null;
+            let currentCard = null;
+            
+            actorCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const audioPath = this.dataset.audio;
+                    
+                    // If clicking the same card that's playing, stop it
+                    if (currentCard === this && currentAudio && !currentAudio.paused) {
+                        currentAudio.pause();
+                        currentAudio.currentTime = 0;
+                        this.classList.remove('playing');
+                        currentCard = null;
+                        return;
+                    }
+                    
+                    // Stop any currently playing audio
+                    if (currentAudio) {
+                        currentAudio.pause();
+                        currentAudio.currentTime = 0;
+                        if (currentCard) {
+                            currentCard.classList.remove('playing');
+                        }
+                    }
+                    
+                    // Play new audio
+                    currentAudio = new Audio(audioPath);
+                    currentCard = this;
+                    this.classList.add('playing');
+                    
+                    currentAudio.play().catch(e => {
+                        console.log('Audio playback failed:', e);
+                    });
+                    
+                    currentAudio.onended = () => {
+                        this.classList.remove('playing');
+                        currentAudio = null;
+                        currentCard = null;
+                    };
+                });
+            });
         });
     </script>
 
