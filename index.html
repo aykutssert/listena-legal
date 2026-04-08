@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listena — Learn English Through Listening</title>
+    <title>Listena - Learn English with Listena</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,15 +11,23 @@
     <link rel="icon" type="image/png" href="icon.png">
 </head>
 <body>
+    <div class="nav-overlay"></div>
     <nav class="navbar">
         <div class="container nav-content">
             <a href="index.html" class="logo">
                 <img src="logo.svg" alt="" class="nav-logo" width="36" height="36">
                 <span class="logo-text">Listena</span>
             </a>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="nav-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Use</a>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
             </div>
         </div>
     </nav>
@@ -30,8 +38,8 @@
                 <div class="app-logo">
                     <img src="logo.svg" alt="Listena" class="logo-image" width="160" height="160">
                 </div>
-                <h1>Learn English<br><span class="gradient-text">Through Listening</span></h1>
-                <p class="hero-subtitle">Podcasts, books, and real conversations — all designed to improve your English naturally.</p>
+                <h1>Learn English<br><span class="gradient-text">with </span><span class="listena-orange">Listena</span></h1>
+                <p class="hero-subtitle">Podcasts, books, and real conversations - all designed to improve your English naturally.</p>
                 <div class="hero-features">
                     <div class="feature-pill">
                         <span class="feature-icon">🎧</span>
@@ -50,7 +58,7 @@
                     <svg width="20" height="24" viewBox="0 0 20 24" fill="none">
                         <path d="M16.5 12.5c0-3.5 2.8-5.2 2.9-5.3-1.6-2.3-4-2.6-4.9-2.7-2.1-.2-4 1.2-5.1 1.2-1 0-2.6-1.2-4.3-1.2C2.9 4.6.5 6.8.5 11.5c0 2.8 1.1 5.7 2.4 7.6 1.3 1.9 2.9 3.9 5 3.9 2 0 2.8-1.3 5.2-1.3 2.4 0 3.1 1.3 5.2 1.2 2.1 0 3.6-1.9 4.9-3.8 1.5-2.2 2.2-4.3 2.2-4.4-.1-.1-4.1-1.6-4.1-6.2zM13.5 3.2C14.6 1.9 15.3.1 15.1-1.7c-1.6.1-3.6 1.1-4.7 2.4-1 1.2-1.9 3-1.6 4.8 1.8.1 3.6-1 4.7-2.3z" fill="currentColor"/>
                     </svg>
-                    Download on the App Store
+                    Start Learning Free
                 </a>
             </div>
         </div>
@@ -156,7 +164,7 @@
     </section>
 
     <!-- Scroll-Driven Phone Mockup Section -->
-    <section class="features-scroll-section">
+    <section id="features" class="features-scroll-section">
         <div class="container features-scroll-container">
             <!-- Left: Scrolling text content -->
             <div class="features-text-content">
@@ -168,7 +176,7 @@
                 <div class="feature-step" data-step="2">
                     <span class="step-number">02 / 05</span>
                     <h2>Read Books</h2>
-                    <p>Classic and modern literature with integrated audio. Read along, listen, or do both — at your own pace with adjustable speed.</p>
+                    <p>Classic and modern literature with integrated audio. Read along, listen, or do both - at your own pace with adjustable speed.</p>
                 </div>
                 <div class="feature-step" data-step="3">
                     <span class="step-number">03 / 05</span>
@@ -324,6 +332,46 @@
     </section>
 
     <script>
+        // Mobile Nav Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const navOverlay = document.querySelector('.nav-overlay');
+
+        function toggleNav() {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        }
+
+        if (navToggle) {
+            navToggle.addEventListener('click', toggleNav);
+        }
+
+        if (navOverlay) {
+            navOverlay.addEventListener('click', toggleNav);
+        }
+
+        // Close nav when clicking links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    toggleNav();
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
         // Scroll-driven phone mockup section (Desktop)
         document.addEventListener('DOMContentLoaded', function() {
             const steps = document.querySelectorAll('.feature-step');
@@ -619,7 +667,7 @@
     </script>
 
     <!-- Pricing Section -->
-    <section class="pricing-section">
+    <section id="pricing" class="pricing-section">
         <div class="container">
             <div class="pricing-header">
                 <h2>Choose Your Plan</h2>
